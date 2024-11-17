@@ -1,25 +1,24 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Footway Plus API",
+  "name": "Starter Kit",
   "logo": {
-    "dark": "/logo/dark.png",
-    "light": "/logo/light.png",
-    "href": "https://footwayplus.com"
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#2563EB",
-    "light": "#60A5FA",
-    "dark": "#1E40AF",
+    "primary": "#0D9373",
+    "light": "#07C983",
+    "dark": "#0D9373",
     "anchors": {
-      "from": "#2563EB",
-      "to": "#60A5FA"
+      "from": "#0D9373",
+      "to": "#07C983"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:plus@footway.com"
+      "url": "mailto:hi@mintlify.com"
     }
   ],
   "topbarCtaButton": {
@@ -37,6 +36,11 @@
       "name": "Documentation",
       "icon": "book-open-cover",
       "url": "https://mintlify.com/docs"
+    },
+    {
+      "name": "Community",
+      "icon": "slack",
+      "url": "https://mintlify.com/community"
     },
     {
       "name": "Blog",
@@ -71,13 +75,17 @@
       ]
     },
     {
-      "group": "API Endpoints",
+      "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/searchInventory"
+        "api-reference/endpoint/get",
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/delete"
       ]
     }
   ],
   "footerSocials": {
-    "linkedin": "https://linkedin.com/company/footway"
+    "x": "https://x.com/mintlify",
+    "github": "https://github.com/mintlify",
+    "linkedin": "https://linkedin.com/company/mintlify"
   }
 }

@@ -1,133 +1,195 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Footway Plus API",
-    "description": "Footway Plus API",
+    "title": "OpenAPI Plant Store",
+    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "license": {
+      "name": "MIT"
+    },
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https://api.footwayplus.com"
+      "url": "http://sandbox.mintlify.com"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
     }
   ],
   "paths": {
-    "/v1/inventory/search": {
+    "/plants": {
       "get": {
-        "summary": "Search inventory items",
-        "description": "Search inventory items with various filters. Multiple values can be provided for each filter type.",
-        "operationId": "searchInventory",
+        "description": "Returns all plants from the system that the user has access to",
         "parameters": [
           {
-            "name": "merchantId",
+            "name": "limit",
             "in": "query",
-            "description": "Filter by merchant ID (can specify multiple)",
-            "schema": {}
-          },
-          {
-            "name": "productName",
-            "in": "query",
-            "description": "Search by product name (uses trigram similarity)",
-            "schema": {}
-          },
-          {
-            "name": "vendor",
-            "in": "query",
-            "description": "Filter by vendor (can specify multiple)",
-            "schema": {}
-          },
-          {
-            "name": "department",
-            "in": "query",
-            "description": "Filter by department (can specify multiple)",
-            "schema": {}
-          },
-          {
-            "name": "productGroup",
-            "in": "query",
-            "description": "Filter by product group (can specify multiple)",
-            "schema": {}
-          },
-          {
-            "name": "productType",
-            "in": "query",
-            "description": "Filter by product type (can specify multiple)",
-            "schema": {}
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Page number (1-based)",
-            "schema": {}
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "Number of items per page",
-            "schema": {}
+            "description": "The maximum number of results to return",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Plant response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plant"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new plant in the store",
+        "requestBody": {
+          "description": "Plant to add to the store",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewPlant"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "plant response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plant"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/plants/{id}": {
+      "delete": {
+        "description": "Deletes a single plant based on the ID supplied",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of plant to delete",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Plant deleted",
             "content": {}
           },
           "400": {
-            "description": "Invalid request parameters",
-            "content": {}
-          },
-          "500": {
-            "description": "Internal server error",
-            "content": {}
-          }
-        },
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ],
-        "x-google-backend": {
-          "address": "https://inventory-service-eu-prod-831959422029.europe-west1.run.app/",
-          "path_translation": "APPEND_PATH_TO_ADDRESS",
-          "protocol": "h2"
-        },
-        "x-google-quota": {
-          "metricCosts": {
-            "request-count": 1
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
     }
   },
   "components": {
-    "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "name": "X-API-KEY",
-        "in": "header"
-      }
-    }
-  },
-  "x-google-management": {
-    "metrics": [
-      {
-        "name": "request-count",
-        "displayName": "Request count",
-        "valueType": "INT64",
-        "metricKind": "DELTA"
-      }
-    ],
-    "quota": {
-      "limits": [
-        {
-          "name": "request-count",
-          "metric": "request-count",
-          "unit": "1/min/{project}",
-          "values": {
-            "STANDARD": 500
+    "schemas": {
+      "Plant": {
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The name of the plant",
+            "type": "string"
+          },
+          "tag": {
+            "description": "Tag to specify the type",
+            "type": "string"
           }
         }
-      ]
+      },
+      "NewPlant": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Plant"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Identification number of the plant",
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ]
+      },
+      "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
     }
-  },
-  "x-original-swagger-version": "2.0"
+  }
 }
