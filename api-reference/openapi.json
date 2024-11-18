@@ -7,10 +7,66 @@
   },
   "servers": [
     {
-      "url": "https://api.footwayplus.com"
+      "url": "/"
     }
   ],
   "paths": {
+    "/v1/inventory/availableFilters": {
+      "get": {
+        "tags": [
+          "inventory"
+        ],
+        "summary": "Get available filter options for inventory search",
+        "description": "Returns possible filter values based on current filter selection",
+        "operationId": "getAvailableFilters",
+        "parameters": [
+          {
+            "name": "merchantId",
+            "in": "query",
+            "description": "Filter by merchant ID (can specify multiple)",
+            "schema": {}
+          },
+          {
+            "name": "vendor",
+            "in": "query",
+            "description": "Filter by vendor (can specify multiple)",
+            "schema": {}
+          },
+          {
+            "name": "department",
+            "in": "query",
+            "description": "Filter by department (can specify multiple)",
+            "schema": {}
+          },
+          {
+            "name": "productGroup",
+            "in": "query",
+            "description": "Filter by product group (can specify multiple)",
+            "schema": {}
+          },
+          {
+            "name": "productType",
+            "in": "query",
+            "description": "Filter by product type (can specify multiple)",
+            "schema": {}
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Available filter options",
+            "content": {}
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {}
+          }
+        }
+      }
+    },
     "/v1/inventory/search": {
       "get": {
         "summary": "Search inventory items",
