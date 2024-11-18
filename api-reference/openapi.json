@@ -24,37 +24,80 @@
             "name": "merchantId",
             "in": "query",
             "description": "Filter by merchant ID (can specify multiple)",
-            "schema": {}
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "maxLength": 3,
+                "minLength": 3,
+                "type": "string"
+              }
+            }
           },
           {
             "name": "vendor",
             "in": "query",
             "description": "Filter by vendor (can specify multiple)",
-            "schema": {}
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           },
           {
             "name": "department",
             "in": "query",
             "description": "Filter by department (can specify multiple)",
-            "schema": {}
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           },
           {
             "name": "productGroup",
             "in": "query",
             "description": "Filter by product group (can specify multiple)",
-            "schema": {}
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           },
           {
             "name": "productType",
             "in": "query",
             "description": "Filter by product type (can specify multiple)",
-            "schema": {}
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "Available filter options",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailableFilters"
+                }
+              }
+            }
           },
           "400": {
             "description": "Invalid request parameters",
@@ -63,6 +106,21 @@
           "500": {
             "description": "Internal server error",
             "content": {}
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "x-google-backend": {
+          "address": "https://inventory-service-eu-prod-831959422029.europe-west1.run.app/",
+          "path_translation": "APPEND_PATH_TO_ADDRESS",
+          "protocol": "h2"
+        },
+        "x-google-quota": {
+          "metricCosts": {
+            "request-count": 1
           }
         }
       }
@@ -155,6 +213,232 @@
     }
   },
   "components": {
+    "schemas": {
+      "PaginatedInventoryResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InventoryItem"
+            }
+          },
+          "totalItems": {
+            "type": "integer"
+          },
+          "currentPage": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          }
+        }
+      },
+      "InventoryItem": {
+        "required": [
+          "merchantId",
+          "productName",
+          "quantity",
+          "variantId"
+        ],
+        "type": "object",
+        "properties": {
+          "merchantId": {
+            "maxLength": 3,
+            "minLength": 3,
+            "type": "string"
+          },
+          "variantId": {
+            "type": "string"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "supplierModelNumber": {
+            "type": "string"
+          },
+          "ean": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "size": {
+            "type": "string"
+          },
+          "price": {
+            "type": "string"
+          },
+          "vendor": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "productType": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "productGroup": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "department": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "AvailableFilters": {
+        "type": "object",
+        "properties": {
+          "totalItems": {
+            "type": "integer",
+            "description": "Total number of items matching the current filter selection"
+          },
+          "merchants": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of unique merchants in the filtered results"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of items matching this merchant"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "vendors": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of unique vendors in the filtered results"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of items matching this vendor"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "departments": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of unique departments in the filtered results"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of items matching this department"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "productGroups": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of unique product groups in the filtered results"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of items matching this product group"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "productTypes": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "integer",
+                "description": "Total number of unique product types in the filtered results"
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "Number of items matching this product type"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "securitySchemes": {
       "ApiKeyAuth": {
         "type": "apiKey",
