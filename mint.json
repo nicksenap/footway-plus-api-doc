@@ -65,16 +65,18 @@
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Using the API",
       "pages": [
         "api-reference/introduction"
       ]
     },
     {
-      "group": "API Endpoints",
+      "group": "Footway+ APIs",
       "pages": [
-        "api-reference/endpoint/searchInventory",
-        "api-reference/endpoint/getAvailableFilters"
+        {
+          "group": "Inventory",
+          "pages": ["api-reference/endpoint/searchInventory", "api-reference/endpoint/getAvailableFilters"]
+        }
       ]
     }
   ],

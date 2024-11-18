@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "/"
+      "url": "https://api.footwayplus.com"
     }
   ],
   "paths": {
@@ -183,15 +183,19 @@
         "responses": {
           "200": {
             "description": "Successful response",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedInventoryResponse"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Invalid request parameters",
-            "content": {}
+            "description": "Invalid request parameters"
           },
           "500": {
-            "description": "Internal server error",
-            "content": {}
+            "description": "Internal server error"
           }
         },
         "security": [
