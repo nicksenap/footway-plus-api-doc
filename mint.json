@@ -6,26 +6,22 @@
     "light": "/logo/light.png",
     "href": "https://footwayplus.com"
   },
+  "theme": "venus",
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#2563EB",
-    "light": "#60A5FA",
-    "dark": "#1E40AF",
-    "anchors": {
-      "from": "#2563EB",
-      "to": "#60A5FA"
+    "primary": "#000000",
+    "light": "#EBECED",
+    "dark": "#0A0C10",
+    "background": {
+      "light": "#FFFFFF",
+      "dark": "#000000"
     }
   },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "mailto:plus@footway.com"
-    }
-  ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Contact Us",
+    "url": "mailto:plus@footway.com"
   },
+  "openapi": "openapi.yaml",
   "tabs": [
     {
       "name": "API Reference",
