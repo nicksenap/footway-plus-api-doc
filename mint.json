@@ -1,12 +1,12 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Footway Plus API",
+  "name": "Footway+ API",
   "logo": {
     "dark": "/logo/dark.png",
     "light": "/logo/light.png",
     "href": "https://footwayplus.com"
   },
-  "theme": "venus",
+  "theme": "prism",
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#000000",
@@ -30,36 +30,12 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://footwayplus.com/"
     }
   ],
   "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
     {
       "group": "Using the API",
       "pages": [
