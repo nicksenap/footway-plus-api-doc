@@ -73,7 +73,8 @@
     {
       "group": "API Endpoints",
       "pages": [
-        "api-reference/endpoint/searchInventory"
+        "api-reference/endpoint/searchInventory",
+        "api-reference/endpoint/getAvailableFilters"
       ]
     }
   ],
