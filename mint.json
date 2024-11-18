@@ -1,12 +1,12 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Footway+ API",
+  "name": "Footway Plus API",
   "logo": {
-    "dark": "/logo/FWY+_LOGO_W.png",
-    "light": "/logo/FWY+_LOGO_B.png",
+    "dark": "/logo/dark.png",
+    "light": "/logo/light.png",
     "href": "https://footwayplus.com"
   },
-  "favicon": "/logo/FWY+_LOGO_B.png",
+  "favicon": "/favicon.svg",
   "colors": {
     "primary": "#2563EB",
     "light": "#60A5FA",
