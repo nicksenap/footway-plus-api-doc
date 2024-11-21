@@ -184,6 +184,8 @@ components:
           type: string
         price:
           type: string
+        product_description:
+          type: string
         vendor:
           type: string
         quantity:
